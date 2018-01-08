@@ -1,0 +1,3 @@
+https://askubuntu.com/questions/777308/virtualbox-problem-kernel-module-is-not-loaded
+https://github.com/Majal/maj-scripts/blob/master/vboxsign
+

@@ -1,0 +1,27 @@
+There are utilities for signing kernel modules so that they
+can be loaded into the kernel is secure boot mode. The general
+procedure is as follows:
+
+1. Generate and encrypt the signing key and the public key
+    (mok-keygen.sh). This will enroll the public key with secure boot
+    and ask for a password. You should remember the password and 
+    immediately reboot, following prompts to enroll the key
+
+2. Reboot and register the public key with the EFI BIOS
+
+3. When a module need to be signed and loaded, use the signing key
+    (Make sure you are absolutely sure of where it came from) and run
+    mok-sign-and-load.sh
+
+
+The kernel will only load signed modules.
+The modules are signed with the private key (MOK.priv) which has been encrypted
+You will need to know the module signing password to sign a module
+
+When a module is loaded it is checked against the public key in the BIOS
+store. No-match => No Load.
+
+If you delete the public key from the machine store, none of the previously 
+signed modeules will load.
+
+    
