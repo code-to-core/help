@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -e MOK.priv ]
+then
+    echo "A private key already exists. If you want to create a"
+    echo "new one, delete MOK.priv first"   
+    exit 1
+fi
+
 # Setting env KBUILD_SIGN_PIN for encrypted keys
 echo "You are going to provide a password to encrypt the signing certificate"
 echo
@@ -18,4 +25,9 @@ fi
 
 openssl req -new -x509 -newkey rsa:2048 -passout env:KBUILD_SIGN_PIN -keyout MOK.priv -outform DER -out MOK.der -days 36500 -subj "/CN=PJW Locally signed vbox drivers/"
 
+
+echo "You will be asked for a password with which to enroll the public key."
+echo "Remember the password and reboot now to enroll the key"
 sudo mokutil --import MOK.der
+
+
